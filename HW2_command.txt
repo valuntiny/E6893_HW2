@@ -1,0 +1,19 @@
+### create a single-node cluster with juypternotebook
+
+gcloud beta dataproc clusters create example-cluster1 \
+    --optional-components=ANACONDA,JUPYTER \
+    --image-version=1.3 \
+    --enable-component-gateway \
+    --bucket big_data_hw \
+    --project test-project-251000 \
+    --num-workers 3 \
+    --metadata \
+    'PIP_PACKAGES=graphframes==0.6' \
+    --initialization-actions gs://dataproc-initialization-actions/python/pip-install.sh \
+    --properties spark:spark.jars.packages=graphframes:graphframes:0.6.0-spark2.3-s_2.11 \
+    --region us-central1
+
+
+### upload data
+gsutil cp ./Desktop/Myfile/EECS6893/HW2/q1.txt \
+    gs://big_data_hw/hw2/q1.txt
